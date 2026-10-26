@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07120f" />
+  <title>Live Aircraft Radar</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">⌁</div>
+        <div>
+          <p class="eyebrow">LIVE AIRSPACE MONITOR</p>
+          <h1>Aircraft Radar</h1>
+          <p class="author-line">by Tahmid Anjum Mozumder</p>
+        </div>
+      </div>
+      <div class="connection-status">
+        <span class="status-dot"></span>
+        <span id="connectionLabel">Awaiting location</span>
+      </div>
+    </header>
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">LOCAL TRACKING</p>
+        <h2>See aircraft around you.</h2>
+        <p class="subtext">A live-data visualization powered by OpenSky Network and your device location.</p>
+      </div>
+      <div class="source-pill"><span class="source-dot"></span> Data source: OpenSky Network</div>
+    </section>
+
+    <section class="control-panel">
+      <div class="location-block">
+        <div class="control-label">YOUR LOCATION</div>
+        <div id="locationText" class="location-value">Location not enabled</div>
+        <div id="locationHint" class="muted small">Allow location access to centre the radar on you.</div>
+      </div>
+      <div class="controls">
+        <label class="range-control" for="radiusRange">
+          <span class="control-label">RADAR RANGE</span>
+          <span class="range-value"><strong id="radiusValue">150</strong> km</span>
+          <input id="radiusRange" type="range" min="50" max="300" step="25" value="150" />
+          <span class="range-ends"><span>50 km</span><span>300 km</span></span>
+        </label>
+        <button id="locationButton" class="primary-button">◎ Use my location</button>
+        <button id="refreshButton" class="secondary-button" disabled>↻ Refresh data</button>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <div class="radar-panel panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">SCANNING DISPLAY</p>
+            <h3>Local airspace</h3>
+          </div>
+          <span class="live-badge"><span></span> RADAR ACTIVE</span>
+        </div>
+        <div class="radar-wrap">
+          <canvas id="radarCanvas" aria-label="Animated radar showing aircraft positions"></canvas>
+          <div id="radarOverlay" class="radar-overlay">
+            <div class="overlay-mark">⌖</div>
+            <strong>Enable your location</strong>
+            <span>The radar will centre on your device.</span>
+          </div>
+        </div>
+        <div class="radar-footer">
+          <span><i class="legend-dot aircraft-dot"></i> Aircraft</span>
+          <span><i class="legend-dot user-dot"></i> Your location</span>
+          <span id="updatedText">Waiting for data</span>
+        </div>
+      </div>
+
+      <aside class="targets-panel panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">DETECTED TARGETS</p>
+            <h3>Aircraft nearby</h3>
+          </div>
+          <span id="targetCount" class="count-badge">0</span>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card"><span class="stat-label">IN RANGE</span><strong id="inRangeStat">0</strong></div>
+          <div class="stat-card"><span class="stat-label">AIRBORNE</span><strong id="airborneStat">0</strong></div>
+        </div>
+        <div id="aircraftList" class="aircraft-list">
+          <div class="empty-state">
+            <div class="empty-symbol">⌁</div>
+            <strong>No targets yet</strong>
+            <span>Enable your location to request live aircraft data.</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="disclaimer">
+      <strong>Important:</strong> This is a radar-style visualization of online ADS-B tracking data, not a physical radar. Coverage, update frequency and aircraft visibility depend on data availability. Some aircraft may not appear.
+      <span id="refreshNote">The app does not save your location.</span>
+      <span class="copyright-line">© 2026 Tahmid Anjum Mozumder. All rights reserved.</span>
+    </footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
